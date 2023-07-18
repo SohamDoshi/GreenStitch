@@ -70,8 +70,8 @@ cd GreenStich_Backend_Assignment/GreenStitch_Backend_Assignment
 - Path: `http://localhost:8081/signIn`
 - Description: Authenticate a user and retrieve their details.
 - Authentication: Basic Authentication (Username and Password)
-    - Username: [sk@gmail.com](mailto:sk@gmail.com)
-    - Password: Shimbhu@123
+    - Username: jc@wwe.com
+    - Password: Johncena#123
 - Response:
 
 ```
