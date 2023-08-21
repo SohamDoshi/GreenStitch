@@ -46,7 +46,7 @@ public class UserController {
 	@GetMapping("/signIn")
 	public ResponseEntity<User> getLoggedInCustomerDetailsHandler(Authentication auth) throws BadCredentialsException{
 		
-		User customer= userRepository.findByEmail(auth.getName());
+		User customer= userRepository.findByEmail(auth.getName()).get();
 		
 		if(customer!=null)
 		{

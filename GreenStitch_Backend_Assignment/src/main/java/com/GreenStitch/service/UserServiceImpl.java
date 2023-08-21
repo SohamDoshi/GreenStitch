@@ -1,6 +1,8 @@
 package com.GreenStitch.service;
 
 
+import java.util.Optional;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContext;
@@ -32,9 +34,9 @@ public class UserServiceImpl implements UserService {
 		
 		String userName = auth.getName();
 		
-		User user = userRepo.findByEmail(userName);
+		Optional<User> user = userRepo.findByEmail(userName);
 		
-		return user;
+		return user.get();
 		
 	}
 	

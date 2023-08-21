@@ -1,9 +1,13 @@
-package com.GreenStitch.jwt;
+package com.masai.config;
 
 import java.io.IOException;
+import java.nio.charset.StandardCharsets;
+import java.time.LocalDateTime;
+import java.util.ArrayList;
 import java.util.Collection;
 import java.util.Date;
 import java.util.HashSet;
+import java.util.List;
 import java.util.Set;
 
 import javax.crypto.SecretKey;
@@ -20,7 +24,8 @@ import jakarta.servlet.ServletException;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 
-public class JwtGeneratorFilter extends OncePerRequestFilter {
+
+public class JwtTokenGeneratorFilter extends OncePerRequestFilter {
 
 	@Override
 	protected void doFilterInternal(HttpServletRequest request, HttpServletResponse response, FilterChain filterChain)
@@ -31,19 +36,19 @@ public class JwtGeneratorFilter extends OncePerRequestFilter {
 		Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
         if (null != authentication) {
         	
-        	System.out.println("authentication "+authentication);
+        	System.out.println("authenticationnnn "+authentication);
         	
         	
             SecretKey key = Keys.hmacShaKeyFor(SecurityConstants.JWT_KEY.getBytes());
             
             
             String jwt = Jwts.builder()
-            		.setIssuer("Shimbhu")
+            		.setIssuer("Ratan")
             		.setSubject("JWT Token")
                     .claim("username", authentication.getName())
                     .claim("role",getRole(authentication.getAuthorities()))
                     .setIssuedAt(new Date())
-                    .setExpiration(new Date(new Date().getTime()+ 30000000)) // expiration time
+                    .setExpiration(new Date(new Date().getTime()+ 90000000)) // expiration time of 24 hours
                     .signWith(key).compact();
             
             response.setHeader(SecurityConstants.JWT_HEADER, jwt);
@@ -67,11 +72,19 @@ public class JwtGeneratorFilter extends OncePerRequestFilter {
 	    
 		  return role;
 	    }
-				
+		
+	
+		
+		
+		
+	
+//this make sure that this filter will execute only for first time when client call the api /login at first time
 	@Override
 	protected boolean shouldNotFilter(HttpServletRequest request) throws ServletException {
 	
         return !request.getServletPath().equals("/signIn");	
 	}
+	
 
 }
+
